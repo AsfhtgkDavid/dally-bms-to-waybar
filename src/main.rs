@@ -107,11 +107,11 @@ async fn run_bms_session(central: &Adapter, runtime_dir: &str) -> Result<(), Box
 fn update_waybar_json(runtime_dir: &str, soc: f32, volt: f32, current: f32) {
     let power = volt * current.abs();
 
-    let (status_icon, class) = if current < -0.1 {
+    let (status_icon, class) = if current > 0.1 {
         ("󰂄", "charging")
     } else if soc <= 20.0 {
         ("󰂃", "critical")
-    } else if current > 0.1 {
+    } else if current < -0.1 {
         ("󰁹", "discharging")
     } else {
         ("󰚥", "idle")
